@@ -25,7 +25,7 @@ public class DataSender {
 
     private Date currentDate;
     private int port = 6868;
-    private static int INTERVAL = 500; //miliseconds
+    private static int INTERVAL = 50; //milisekundy
     private String hostname = "localhost";
 
     public DataSender(){
@@ -71,18 +71,19 @@ public class DataSender {
         try (Socket socket = new Socket(hostname, port)) {
             String dataHeader;
             ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
-            if(!nozzleMeasureDataPart.isEmpty()){
-                System.out.println("sending NozzleMeasure data from: "+ nozzleMeasureDataPart.get(0).getMeasureDate());
-                dataHeader = "nozzleMeasure";
-                toServer.writeObject(dataHeader);
-                toServer.writeObject(nozzleMeasureDataPart);
-            }
 
             if(!tankMeasuresDataPart.isEmpty()){
                 System.out.println("sending TankMeasure data from: "+ tankMeasuresDataPart.get(0).getMeasureDate());
                 dataHeader = "tankMeasure";
                 toServer.writeObject(dataHeader);
                 toServer.writeObject(tankMeasuresDataPart);
+            }
+
+            if(!nozzleMeasureDataPart.isEmpty()){
+                System.out.println("sending NozzleMeasure data from: "+ nozzleMeasureDataPart.get(0).getMeasureDate());
+                dataHeader = "nozzleMeasure";
+                toServer.writeObject(dataHeader);
+                toServer.writeObject(nozzleMeasureDataPart);
             }
 
             if(!refuelDataPart.isEmpty()){
@@ -122,7 +123,7 @@ public class DataSender {
     }
 
     private void stepOverDate() {
-        currentDate = addMinutes(currentDate, 25);
+        currentDate = addMinutes(currentDate, 1);
     }
 
     private static Date addMinutes(Date date, int minutes) {
