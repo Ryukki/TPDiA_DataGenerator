@@ -6,12 +6,31 @@ import java.util.Date;
 /**
  * Created by Ryukki on 03.07.2018.
  */
-public class NozzleMeasure  extends BaseClass implements Serializable{
+public class NozzleMeasure implements Serializable{
     private Integer locationId = 0;//always empty
     private Integer pistolId;
     private Double literCounter;//current transaction counter
     private Double totalCounter;//total counter of the pistol(nozzle)
     private Boolean status;//1-put down, 0-fueling in process
+    private Date measureDate;
+    private Integer tankId;
+
+    public void setMeasureDate(Date measureDate) {
+        this.measureDate = measureDate;
+    }
+
+    public void setTankId(Integer tankId) {
+        this.tankId = tankId;
+    }
+
+    public Date getMeasureDate() {
+
+        return measureDate;
+    }
+
+    public Integer getTankId() {
+        return tankId;
+    }
 
     public Integer getLocationId() {
         return locationId;

@@ -1,4 +1,5 @@
 package utils;
+import entities.AllMeasures;
 import entities.NozzleMeasure;
 import entities.Refuel;
 import entities.TankMeasure;
@@ -72,26 +73,16 @@ public class DataSender {
             String dataHeader;
             ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
 
-            if(!tankMeasuresDataPart.isEmpty()){
-                System.out.println("sending TankMeasure data from: "+ tankMeasuresDataPart.get(0).getMeasureDate());
-                dataHeader = "tankMeasure";
-                toServer.writeObject(dataHeader);
-                toServer.writeObject(tankMeasuresDataPart);
-            }
+            AllMeasures allMeasures = new AllMeasures();
+            allMeasures.setNozzleMeasures(nozzleMeasureDataPart);
+            allMeasures.setTankMeasures(tankMeasuresDataPart);
+            allMeasures.setRefuels(refuelDataPart);
 
-            if(!nozzleMeasureDataPart.isEmpty()){
-                System.out.println("sending NozzleMeasure data from: "+ nozzleMeasureDataPart.get(0).getMeasureDate());
-                dataHeader = "nozzleMeasure";
-                toServer.writeObject(dataHeader);
-                toServer.writeObject(nozzleMeasureDataPart);
-            }
+            System.out.println("sending AllData data"+ nozzleMeasureDataPart.get(0).getMeasureDate());
+            dataHeader = "allMeasures";
 
-            if(!refuelDataPart.isEmpty()){
-                System.out.println("sending Refuel data from: "+ refuelDataPart.get(0).getMeasureDate());
-                dataHeader = "refuel";
-                toServer.writeObject(dataHeader);
-                toServer.writeObject(refuelDataPart);
-            }
+            toServer.writeObject(dataHeader);
+            toServer.writeObject(allMeasures);
 
         } catch (UnknownHostException ex) {
             System.out.println("Server not found: " + ex.getMessage());

@@ -27,7 +27,7 @@ Thumbs.db
 target
 
 # Build
-out
+out/
 build
 bin
 

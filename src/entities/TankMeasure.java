@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by Ryukki on 03.07.2018.
  */
-public class TankMeasure extends BaseClass implements Serializable {
+public class TankMeasure implements Serializable {
     private Integer locationId;//always empty
     private Integer meterId;//always empty
     private Integer fuelHeight;//always zero
@@ -15,6 +15,25 @@ public class TankMeasure extends BaseClass implements Serializable {
     private Integer fuelTemperature;
     private Integer waterHeight;//always empty
     private Integer waterVolume;//always empty
+    private Date measureDate;
+    private Integer tankId;
+
+    public void setMeasureDate(Date measureDate) {
+        this.measureDate = measureDate;
+    }
+
+    public void setTankId(Integer tankId) {
+        this.tankId = tankId;
+    }
+
+    public Date getMeasureDate() {
+
+        return measureDate;
+    }
+
+    public Integer getTankId() {
+        return tankId;
+    }
 
     public Integer getLocationId() {
         return locationId;
