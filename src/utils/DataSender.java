@@ -45,10 +45,22 @@ public class DataSender {
         new Thread(new Runnable() {
             public void run() {
                 setDate();
+                boolean firstTankMeasure = false;
 
                 while(!tankMeasuresData.isEmpty() || !nozzleMeasureData.isEmpty() || !refuelData.isEmpty()){
                     stepOverDate();
                     extractData();
+                    if(!firstTankMeasure){
+                        if(!tankMeasuresDataPart.isEmpty()){
+                            firstTankMeasure=true;
+                            sendData();
+                            clearLists();
+                            continue;
+                        }else {
+                            clearLists();
+                            continue;
+                        }
+                    }
                     sendData();
                     clearLists();
                     try {
